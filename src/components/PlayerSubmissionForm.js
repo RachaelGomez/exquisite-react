@@ -3,7 +3,47 @@ import PropTypes from 'prop-types';
 
 import './PlayerSubmissionForm.css';
 
-const PlayerSubmissionForm = () => {
+const PlayerSubmissionForm = (props) => {
+  const setDefault = () => {
+    let defaultFields = {}
+    props.fields.forEach((field) => {
+      if (field.key) {
+        defaultFields[field.key] = field.placeholder;
+
+      }
+    });
+    return defaultFields;
+  }
+const [formFields, setFormFields] = useState(setDefault());
+const [currentPlayer, setcurrentPlayer] = useState(1)
+
+const onInputChange = (event) => {
+  console.log(`Changing field ${ event.target.name } to ${ event.target.value }`);
+  // Duplicate formFields into new object
+  const newFormFields = {
+    ...formFields,
+  }
+  
+
+  newFormFields[event.target.name] = event.target.value;
+  setFormFields(newFormFields);
+}
+
+const onFormSubmit = event => {
+  event.preventDefault();
+
+  props.sendSubmission(formFields);
+
+  setFormFields({
+      adj1: '',
+      noun1: '',
+      adv: '',
+      verb: '',
+      adj2: '',
+      noun2: ''
+  });
+};
+
   return (
     <div className="PlayerSubmissionForm">
       <h3>Player Submission Form for Player #{  }</h3>
@@ -12,12 +52,31 @@ const PlayerSubmissionForm = () => {
 
         <div className="PlayerSubmissionForm__poem-inputs">
 
-          {
-            // Put your form inputs here... We've put in one below as an example
+          
+        {
+            props.fields.map((field, index) => {
+
+              if (typeof field === 'object') {
+                return(
+                  <input
+                    key={ index }
+                    value={ formFields[field.key] }
+                    name={ field.key }
+                    placeholder={ field.placeholder }
+                    onChange={ onInputChange }
+                    
+                  />
+                )
+              } else {
+                return(
+                  <div key={ index }>
+                    { field }
+                  </div>
+                )
+              }
+            })
           }
-          <input
-            placeholder="hm..."
-            type="text" />
+        
 
         </div>
 

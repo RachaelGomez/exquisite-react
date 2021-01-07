@@ -8,7 +8,7 @@ const PlayerSubmissionForm = (props) => {
     let defaultFields = {}
     props.fields.forEach((field) => {
       if (field.key) {
-        defaultFields[field.key] = field.placeholder;
+        defaultFields[field.key] = '';
 
       }
     });

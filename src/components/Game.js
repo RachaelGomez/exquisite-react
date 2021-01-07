@@ -14,27 +14,39 @@ const Game = () => {
     }
   }).join(' ');
 
-  const lines = []
+  
 
-  const [poemLines, setPoemLines] = useState(lines);
+  const [poemLines, setPoemLines] = useState([]);
+  const [isSubmitted, setisSubmitted] = useState(false);
 
-  const addPoemLine = line => {
-    const newLine = [...lines];
+  const setPlayer = (updatedPlayer) => {
+    updatedPlayer = updatedPlayer += 1
+    setcurrentPlayer(updatedPlayer)
+  }
 
-    newLine.push({
-      adj1: line.adj1,
-      noun1: line.noun1,
-      adv: line.adv,
-      verb: line.verb,
-      adj2: line.adj2,
-      noun2: line.noun2
-    });
 
-    setPoemLines(newLine);
+  const addPoemLine = (line) => {
+    // const newLine = [...lines];
 
-    setcurrentPlayer(currentPlayer + 1)
+    const formatLines = FIELDS.map((field) => {
+      if (field.key) {
+        return line[field.key];
+      } else {
+        return field;
+      }
+    }).join(' ');  
+
+    setPoemLines([...poemLines, formatLines])
+
+    setcurrentPlayer(setPlayer);
+    
+
     
   };
+  const revealPoem = () => {
+    setisSubmitted(true);
+  }
+  
 
 
 
@@ -50,11 +62,11 @@ const Game = () => {
         { exampleFormat }
       </p>
 
-      <RecentSubmission />
+      <RecentSubmission  />
 
       <PlayerSubmissionForm fields={FIELDS} sendSubmission={addPoemLine} index={currentPlayer} />
 
-      <FinalPoem />
+      <FinalPoem isSubmitted={isSubmitted} submissions={poemLines} revealPoem={revealPoem} />
 
     </div>
   );

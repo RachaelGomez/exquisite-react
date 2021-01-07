@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import FinalPoem from './FinalPoem';
 
-describe.skip('FinalPoem', () => {
+describe('FinalPoem', () => {
   describe('before the poem is finished', () => {
     test('it renders with a button when isSubmitted is false', () => {
       // Act
@@ -16,7 +16,7 @@ describe.skip('FinalPoem', () => {
       expect(button).toBeInTheDocument();
     });
 
-    test('it calls the callback function when the button is clicked on', () => {
+    test.skip('it calls the callback function when the button is clicked on', () => {
       // Arrange
       const callbackFunction = jest.fn();
       // Act
@@ -28,7 +28,7 @@ describe.skip('FinalPoem', () => {
     });
   });
 
-  describe('after the poem is submitted', () => {
+  describe.skip('after the poem is submitted', () => {
     test('it does not render the button if "isSubmitted" is true', () => {
       render(<FinalPoem isSubmitted={true} submissions={[]} revealPoem={() => { }} />);
 

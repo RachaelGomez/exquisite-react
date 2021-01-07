@@ -15,7 +15,6 @@ const PlayerSubmissionForm = (props) => {
     return defaultFields;
   }
 const [formFields, setFormFields] = useState(setDefault());
-const [currentPlayer, setcurrentPlayer] = useState(1)
 
 const onInputChange = (event) => {
   console.log(`Changing field ${ event.target.name } to ${ event.target.value }`);
@@ -42,13 +41,14 @@ const onFormSubmit = event => {
       adj2: '',
       noun2: ''
   });
+  
 };
 
   return (
     <div className="PlayerSubmissionForm">
       <h3>Player Submission Form for Player #{  }</h3>
 
-      <form className="PlayerSubmissionForm__form" >
+      <form className="PlayerSubmissionForm__form" onSubmit={onFormSubmit}>
 
         <div className="PlayerSubmissionForm__poem-inputs">
 

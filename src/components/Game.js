@@ -31,7 +31,12 @@ const Game = () => {
     });
 
     setPoemLines(newLine);
+
+    setcurrentPlayer(currentPlayer + 1)
+    
   };
+
+
 
   return (
     <div className="Game">
@@ -47,7 +52,7 @@ const Game = () => {
 
       <RecentSubmission />
 
-      <PlayerSubmissionForm fields={FIELDS} sendSubmission={addPoemLine}/>
+      <PlayerSubmissionForm fields={FIELDS} sendSubmission={addPoemLine} index={currentPlayer} />
 
       <FinalPoem />
 

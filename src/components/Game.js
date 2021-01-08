@@ -47,6 +47,9 @@ const Game = () => {
   const revealPoem = () => {
     setisSubmitted(true);
   }
+
+  let mostRecentSubmission = poemLines[poemLines.length - 1];
+  
   
 
 
@@ -63,9 +66,9 @@ const Game = () => {
         { exampleFormat }
       </p>
 
-      <RecentSubmission isSubmitted={isSubmitted} submissions={poemLines}  />
+      <RecentSubmission isSubmitted={isSubmitted} submission={mostRecentSubmission}  />
 
-      <PlayerSubmissionForm fields={FIELDS} sendSubmission={addPoemLine} index={currentPlayer} />
+      <PlayerSubmissionForm fields={FIELDS} sendSubmission={addPoemLine} index={currentPlayer} isSubmitted={isSubmitted} />
 
       <FinalPoem isSubmitted={isSubmitted} submissions={poemLines} revealPoem={revealPoem}  />
 

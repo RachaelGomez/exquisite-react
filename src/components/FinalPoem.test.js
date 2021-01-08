@@ -16,7 +16,7 @@ describe('FinalPoem', () => {
       expect(button).toBeInTheDocument();
     });
 
-    test.skip('it calls the callback function when the button is clicked on', () => {
+    test('it calls the callback function when the button is clicked on', () => {
       // Arrange
       const callbackFunction = jest.fn();
       // Act
@@ -28,7 +28,7 @@ describe('FinalPoem', () => {
     });
   });
 
-  describe.skip('after the poem is submitted', () => {
+  describe('after the poem is submitted', () => {
     test('it does not render the button if "isSubmitted" is true', () => {
       render(<FinalPoem isSubmitted={true} submissions={[]} revealPoem={() => { }} />);
 

@@ -44,51 +44,77 @@ const onFormSubmit = event => {
   
 };
 
-  return (
-    <div className="PlayerSubmissionForm">
-      <h3>Player Submission Form for Player #{ props.index }</h3>
+const fieldValid = () => {
+  if (props.key != null)
+  return true
+}
 
-      <form className="PlayerSubmissionForm__form" onSubmit={onFormSubmit}>
-
-        <div className="PlayerSubmissionForm__poem-inputs">
-
+const gameComplete = () => {
+  if (!props.isSubmitted) {
+    return (
+      <div className="PlayerSubmissionForm">
+        <h3>Player Submission Form for Player #{ props.index }</h3>
+  
+        <form className="PlayerSubmissionForm__form" onSubmit={onFormSubmit}>
+  
+          <div className="PlayerSubmissionForm__poem-inputs">
+  
+            
+          {
+              props.fields.map((field, index) => {
+  
+                if (typeof field === 'object') {
+                  return(
+                    <input
+                      key={ index }
+                      value={ formFields[field.key] }
+                      name={ field.key }
+                      placeholder={ field.placeholder }
+                      onChange={ onInputChange }
+                      // className={fieldValid() "" ? "PlayerSubmissionFormt__input--invalid" }
+                      
+                    />
+                  )
+                } else {
+                  return(
+                    <div key={ index }>
+                      { field }
+                    </div>
+                  )
+                }
+              })
+            }
           
-        {
-            props.fields.map((field, index) => {
+  
+          </div>
+  
+          <div className="PlayerSubmissionForm__submit">
+            <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn" />
+          </div>
+        </form>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h3>
+          All done!
+        </h3>
+      </div>
+    )
+  }
 
-              if (typeof field === 'object') {
-                return(
-                  <input
-                    key={ index }
-                    value={ formFields[field.key] }
-                    name={ field.key }
-                    placeholder={ field.placeholder }
-                    onChange={ onInputChange }
-                    
-                  />
-                )
-              } else {
-                return(
-                  <div key={ index }>
-                    { field }
-                  </div>
-                )
-              }
-            })
-          }
-        
-
-        </div>
-
-        <div className="PlayerSubmissionForm__submit">
-          <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn" />
-        </div>
-      </form>
+}
+  return (
+    <div>
+      {gameComplete()}
     </div>
-  );
+  )
+  
 }
 
 PlayerSubmissionForm.propTypes = {
+  isSubmitted: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   sendSubmission: PropTypes.func.isRequired,
   fields: PropTypes.arrayOf(PropTypes.oneOfType([
